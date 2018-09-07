@@ -5,7 +5,7 @@
     <title>gh-release</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.6.0/styles/github.min.css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
-    <link rel="stylesheet" href="https://ungoldman.github.io/style.css/site.css">
+    <link rel="stylesheet" href="https://css-pkg.github.io/style.css/site.css">
     <style>
       body {
         font-size: 14px;
@@ -93,7 +93,7 @@ https://github.com/ungoldman/cool-project/releases/tag/v1.0.0
 <p>Should be run at the root of the project to be released.</p>
 <p>Expects a <code>package.json</code> and <code>CHANGELOG.md</code> in the working directory.</p>
 <p>Prints release URL to <code>stdout</code> on success.</p>
-<p>Uses <a href="https://github.com/rvagg/ghauth"><code>ghauth</code></a> for authentication with Github. A Github API OAuth token is saved to the <code>gh-release</code> config directory after the first time authenticating. Note that the config directory is determined by <a href="https://github.com/LinusU/node-application-config"><code>application-config</code></a> and is OS-specific.</p>
+<p>Uses <a href="https://github.com/rvagg/ghauth"><code>ghauth</code></a> for authentication with Github. A Github API OAuth token is saved to the <code>gh-release</code> config directory after the first time authenticating. Note that the config directory is determined by <a href="https://github.com/LinusU/node-application-config"><code>application-config</code></a> and is OS-specific. gh-release will alternatively use the token specified in the <code>GH_RELEASE_GITHUB_API_TOKEN</code> environment variable if it exists. This allows it to be used in continuous deployment systems, which can inject different GitHub API tokens depending on the location of the project.</p>
 <p>Get usage info by running with <code>--help</code> or <code>-h</code>.</p>
 <pre><code class="language-console"><span class="hljs-meta">$</span><span class="bash"> gh-release --<span class="hljs-built_in">help</span></span>
 Usage: gh-release [options]
@@ -115,6 +115,7 @@ Options:
   -e, --endpoint          GitHub API endpoint URL                   [default: &quot;https://api.github.com&quot;]
   -a, --assets            comma-delimited list of assets to upload  [default: false]
   --dry-run               dry run (stops before release step)       [default: false]
+  -y, --yes               bypass confirmation prompt for release    [default: false]
   -h, --help              Show help
   -v, --version           Show version number
 </code></pre>
