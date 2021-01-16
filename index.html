@@ -1,6 +1,4 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
+<!DOCTYPE html><html lang="en"><head>
     <meta charset="utf-8">
     <title>gh-release</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.6.0/styles/github.min.css">
@@ -48,7 +46,7 @@
   <body>
     <nav class="top-bar">
       <a class="top-bar-link" href="https://hypermodul.es">hypermodules</a>
-      <span class="top-bar-text">&#xA0;/&#xA0;</span>
+      <span class="top-bar-text">&nbsp;/&nbsp;</span>
       <a class="top-bar-title" href="https://hypermodules.github.io/gh-release">gh-release</a>
       <div class="top-bar-right">
         <a class="top-bar-link" href="https://github.com/hypermodules/gh-release/">
@@ -69,14 +67,17 @@
 <li>Supports uploading release assets.</li>
 </ul>
 <p><img src="demo.gif" alt="gh-release example"></p>
+<h2>⚠️ Important ⚠️</h2>
+<p>This library abides by the well-established and widely adopted changelog conventions set forth in <a href="http://keepachangelog.com">http://keepachangelog.com</a>.</p>
+<p>Any other conventions (autochangelog, standard-version, your favorite thing) are not supported, and support will not be added for them. This library is several years old and well into maintenance mode.</p>
 <h2>Install</h2>
-<pre><code>$ npm install gh-release
+<pre><code class="hljs">$ npm install gh-release
 </code></pre>
 <h2>Usage</h2>
 <h3>Command-line interface</h3>
-<pre><code class="language-console"><span class="hljs-meta">$</span><span class="bash"> gh-release</span>
+<pre><code class="hljs language-console"><span class="hljs-meta">$</span><span class="bash"> gh-release</span>
 Your GitHub username: ungoldman
-Your GitHub password: &#x2714;&#x2714;&#x2714;&#x2714;&#x2714;&#x2714;&#x2714;&#x2714;
+Your GitHub password: ✔✔✔✔✔✔✔✔
 
 creating release v1.0.0 for ungoldman/cool-project
 
@@ -95,7 +96,7 @@ https://github.com/ungoldman/cool-project/releases/tag/v1.0.0
 <p>Prints release URL to <code>stdout</code> on success.</p>
 <p>Uses <a href="https://github.com/rvagg/ghauth"><code>ghauth</code></a> for authentication with Github. A Github API OAuth token is saved to the <code>gh-release</code> config directory after the first time authenticating. Note that the config directory is determined by <a href="https://github.com/LinusU/node-application-config"><code>application-config</code></a> and is OS-specific. gh-release will alternatively use the token specified in the <code>GH_RELEASE_GITHUB_API_TOKEN</code> environment variable if it exists. This allows it to be used in continuous deployment systems, which can inject different GitHub API tokens depending on the location of the project.</p>
 <p>Get usage info by running with <code>--help</code> or <code>-h</code>.</p>
-<pre><code class="language-console"><span class="hljs-meta">$</span><span class="bash"> gh-release --<span class="hljs-built_in">help</span></span>
+<pre><code class="hljs language-console"><span class="hljs-meta">$</span><span class="bash"> gh-release --<span class="hljs-built_in">help</span></span>
 Usage: gh-release [options]
 
 Examples:
@@ -111,8 +112,8 @@ Options:
   -r, --repo              repo name
   -d, --draft             publish as draft                          [default: false]
   -p, --prerelease        publish as prerelease                     [default: false]
-  -w, --workpath          path to working directory                 [default: &quot;/Users/ng/dev/git/gh-release&quot;]
-  -e, --endpoint          GitHub API endpoint URL                   [default: &quot;https://api.github.com&quot;]
+  -w, --workpath          path to working directory                 [default: "/Users/ng/dev/git/gh-release"]
+  -e, --endpoint          GitHub API endpoint URL                   [default: "https://api.github.com"]
   -a, --assets            comma-delimited list of assets to upload  [default: false]
   --dry-run               dry run (stops before release step)       [default: false]
   -y, --yes               bypass confirmation prompt for release    [default: false]
@@ -120,34 +121,35 @@ Options:
   -v, --version           Show version number
 </code></pre>
 <h3>Node API</h3>
-<pre><code class="language-js"><span class="hljs-keyword">var</span> ghRelease = <span class="hljs-built_in">require</span>(<span class="hljs-string">&apos;gh-release&apos;</span>)
+<pre><code class="hljs language-js"><span class="hljs-keyword">var</span> ghRelease = <span class="hljs-built_in">require</span>(<span class="hljs-string">'gh-release'</span>)
 
 <span class="hljs-comment">// all options have defaults and can be omitted</span>
 <span class="hljs-keyword">var</span> options = {
-  <span class="hljs-attr">tag_name</span>: <span class="hljs-string">&apos;v1.0.0&apos;</span>,
-  <span class="hljs-attr">target_commitish</span>: <span class="hljs-string">&apos;master&apos;</span>,
-  <span class="hljs-attr">name</span>: <span class="hljs-string">&apos;v1.0.0&apos;</span>,
-  <span class="hljs-attr">body</span>: <span class="hljs-string">&apos;* init\n&apos;</span>,
+  <span class="hljs-attr">tag_name</span>: <span class="hljs-string">'v1.0.0'</span>,
+  <span class="hljs-attr">target_commitish</span>: <span class="hljs-string">'master'</span>,
+  <span class="hljs-attr">name</span>: <span class="hljs-string">'v1.0.0'</span>,
+  <span class="hljs-attr">body</span>: <span class="hljs-string">'* init\n'</span>,
   <span class="hljs-attr">draft</span>: <span class="hljs-literal">false</span>,
   <span class="hljs-attr">prerelease</span>: <span class="hljs-literal">false</span>,
-  <span class="hljs-attr">repo</span>: <span class="hljs-string">&apos;gh-release&apos;</span>,
-  <span class="hljs-attr">owner</span>: <span class="hljs-string">&apos;ungoldman&apos;</span>,
-  <span class="hljs-attr">endpoint</span>: <span class="hljs-string">&apos;https://api.github.com&apos;</span> <span class="hljs-comment">// for GitHub enterprise, use http(s)://hostname/api/v3</span>
+  <span class="hljs-attr">repo</span>: <span class="hljs-string">'gh-release'</span>,
+  <span class="hljs-attr">owner</span>: <span class="hljs-string">'ungoldman'</span>,
+  <span class="hljs-attr">endpoint</span>: <span class="hljs-string">'https://api.github.com'</span> <span class="hljs-comment">// for GitHub enterprise, use http(s)://hostname/api/v3</span>
 }
 
 <span class="hljs-comment">// options can also be just an empty object</span>
 <span class="hljs-keyword">var</span> options = {}
 
 <span class="hljs-comment">// auth is required</span>
-<span class="hljs-comment">// it can either be a username &amp; password...</span>
+<span class="hljs-comment">// it can be an API token...</span>
 options.auth = {
-  <span class="hljs-attr">username</span>: <span class="hljs-string">&apos;ungoldman&apos;</span>,
-  <span class="hljs-attr">password</span>: <span class="hljs-string">&apos;XXXXXXXX&apos;</span>
+  <span class="hljs-attr">token</span>: <span class="hljs-string">'XXXXXXXX'</span>
 }
 
-<span class="hljs-comment">// or an API token</span>
+<span class="hljs-comment">// or it can either be a username &amp; password</span>
+<span class="hljs-comment">// (But only for GitHub Enterprise when endpoint is set)</span>
 options.auth = {
-  <span class="hljs-attr">token</span>: <span class="hljs-string">&apos;XXXXXXXX&apos;</span>
+  <span class="hljs-attr">username</span>: <span class="hljs-string">'ungoldman'</span>,
+  <span class="hljs-attr">password</span>: <span class="hljs-string">'XXXXXXXX'</span>
 }
 
 ghRelease(options, <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">err, result</span>) </span>{
@@ -169,7 +171,7 @@ ghRelease(options, <span class="hljs-function"><span class="hljs-keyword">functi
 <tr>
 <td style="text-align:right"><code>tag_name</code></td>
 <td>release tag</td>
-<td>&#x2018;v&#x2019; + <code>version</code></td>
+<td>‘v’ + <code>version</code></td>
 </tr>
 <tr>
 <td style="text-align:right"><code>target_commitish</code></td>
@@ -179,7 +181,7 @@ ghRelease(options, <span class="hljs-function"><span class="hljs-keyword">functi
 <tr>
 <td style="text-align:right"><code>name</code></td>
 <td>release title</td>
-<td>&#x2018;v&#x2019; + <code>version</code></td>
+<td>‘v’ + <code>version</code></td>
 </tr>
 <tr>
 <td style="text-align:right"><code>body</code></td>
@@ -258,7 +260,7 @@ ghRelease(options, <span class="hljs-function"><span class="hljs-keyword">functi
 </tbody>
 </table>
 <h2>Motivation</h2>
-<p>There are packages that already do something like this, and they&#x2019;re great, but I want something that does this one thing really well and nothing else, leans heavily on standards in <code>package.json</code> and <code>CHANGELOG.md</code>, and can work both as a CLI tool and programmatically in node.</p>
+<p>There are packages that already do something like this, and they’re great, but I want something that does this one thing really well and nothing else, leans heavily on standards in <code>package.json</code> and <code>CHANGELOG.md</code>, and can work both as a CLI tool and programmatically in node.</p>
 <h2>Contributing</h2>
 <p>Contributions welcome! Please read the <a href="contributing/">contributing guidelines</a> first.</p>
 <h2>History</h2>
@@ -276,5 +278,6 @@ ghRelease(options, <span class="hljs-function"><span class="hljs-keyword">functi
     <footer>
       <a href="https://hypermodul.es"><small><i class="fa fa-paper-plane" aria-hidden="true"></i></small></a>
     </footer>
-  </body>
-</html>
+  
+
+</body></html>
